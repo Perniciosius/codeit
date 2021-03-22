@@ -38,7 +38,7 @@ func HandleCpp(ctx *fiber.Ctx) error {
 
 	script := []byte(fmt.Sprintf("#!/bin/bash\n%v && %v", compileCommand, executeCommand))
 
-	fileName := fmt.Sprintf("%v/main.c", folderName)
+	fileName := fmt.Sprintf("%v/main.cpp", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)
 	if err != nil {
 		log.Fatalln(err)
