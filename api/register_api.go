@@ -10,6 +10,7 @@ func Register(apiGroup fiber.Router) {
 	apiGroup.Post("/cpp", utilities.CheckRequestBody, HandleCpp)
 	apiGroup.Post("/java", utilities.CheckRequestBody, HandleJava)
 	apiGroup.Post("/go", utilities.CheckRequestBody, HandleGo)
+	apiGroup.Post("/python", utilities.CheckRequestBody, HandlePython3)
 	apiGroup.Post("/python2", utilities.CheckRequestBody, HandlePython2)
 	apiGroup.Post("/python3", utilities.CheckRequestBody, HandlePython3)
 
