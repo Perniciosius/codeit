@@ -25,7 +25,7 @@ func HandlePython3(ctx *fiber.Ctx) error {
 	}
 
 	executeCommand := "python3 main.py"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work python sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work python sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)

@@ -25,7 +25,7 @@ func HandleJavascript(ctx *fiber.Ctx) error {
 	}
 
 	executeCommand := "node main.js"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work node sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work node sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)

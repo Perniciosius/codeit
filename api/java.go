@@ -26,7 +26,7 @@ func HandleJava(ctx *fiber.Ctx) error {
 
 	compileCommand := "javac main.java"
 	executeCommand := "java main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work openjdk sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work openjdk sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)

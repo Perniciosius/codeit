@@ -26,7 +26,7 @@ func HandleCpp(ctx *fiber.Ctx) error {
 
 	compileCommand := "g++ main.cpp -o main"
 	executeCommand := "./main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work gcc sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work gcc sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)

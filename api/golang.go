@@ -26,7 +26,7 @@ func HandleGo(ctx *fiber.Ctx) error {
 
 	compileCommand := "go build main.go"
 	executeCommand := "./main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work golang sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work golang sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
