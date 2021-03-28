@@ -24,6 +24,8 @@ func HandleC(ctx *fiber.Ctx) error {
 		log.Fatalln(err)
 	}
 
+	defer utilities.Cleanup(folderName)
+
 	compileCommand := "gcc main.c -o main"
 	executeCommand := "./main"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work gcc bash script.sh", pwd, folderName)
@@ -67,8 +69,6 @@ func HandleC(ctx *fiber.Ctx) error {
 	if err != nil && len(output) < 1 {
 		log.Fatalln(err)
 	}
-
-	defer utilities.Cleanup(folderName)
 
 	return ctx.JSON(map[string]string{
 		"output": string(output),

@@ -24,6 +24,8 @@ func HandlePython2(ctx *fiber.Ctx) error {
 		log.Fatalln(err)
 	}
 
+	defer utilities.Cleanup(folderName)
+
 	executeCommand := "python2 main.py"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work python bash script.sh", pwd, folderName)
 
@@ -58,8 +60,6 @@ func HandlePython2(ctx *fiber.Ctx) error {
 	if err != nil && len(output) < 1 {
 		log.Fatalln(err)
 	}
-
-	defer utilities.Cleanup(folderName)
 
 	return ctx.JSON(map[string]string{
 		"output": string(output),

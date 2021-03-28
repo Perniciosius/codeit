@@ -24,6 +24,8 @@ func HandleGo(ctx *fiber.Ctx) error {
 		log.Fatalln(err)
 	}
 
+	defer utilities.Cleanup(folderName)
+
 	compileCommand := "go build main.go"
 	executeCommand := "./main"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work golang bash script.sh", pwd, folderName)
@@ -67,8 +69,6 @@ func HandleGo(ctx *fiber.Ctx) error {
 	if err != nil && len(output) < 1 {
 		log.Fatalln(err)
 	}
-
-	defer utilities.Cleanup(folderName)
 
 	return ctx.JSON(map[string]string{
 		"output": string(output),

@@ -24,6 +24,8 @@ func HandleJava(ctx *fiber.Ctx) error {
 		log.Fatalln(err)
 	}
 
+	defer utilities.Cleanup(folderName)
+
 	compileCommand := "javac main.java"
 	executeCommand := "java main"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work openjdk bash script.sh", pwd, folderName)
@@ -67,8 +69,6 @@ func HandleJava(ctx *fiber.Ctx) error {
 	if err != nil && len(output) < 1 {
 		log.Fatalln(err)
 	}
-
-	defer utilities.Cleanup(folderName)
 
 	return ctx.JSON(map[string]string{
 		"output": string(output),
