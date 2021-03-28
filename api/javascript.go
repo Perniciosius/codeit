@@ -31,7 +31,7 @@ func HandleJavascript(ctx *fiber.Ctx) error {
 	compileRequestBody := new(model.CompileRequestBody)
 	_ = ctx.BodyParser(compileRequestBody)
 
-	script := []byte(fmt.Sprintf("#!/bin/bash\n%v", executeCommand))
+	script := utilities.BuildScript("", executeCommand)
 
 	fileName := fmt.Sprintf("%v/main.js", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)

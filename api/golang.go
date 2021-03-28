@@ -36,7 +36,7 @@ func HandleGo(ctx *fiber.Ctx) error {
 		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.Arguments)
 	}
 
-	script := []byte(fmt.Sprintf("#!/bin/bash\n%v && %v", compileCommand, executeCommand))
+	script := utilities.BuildScript(compileCommand, executeCommand)
 
 	fileName := fmt.Sprintf("%v/main.go", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)
