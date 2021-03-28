@@ -24,14 +24,15 @@ func HandleTypescript(ctx *fiber.Ctx) error {
 		log.Fatalln(err)
 	}
 
-	executeCommand := "ts-node main.ts"
+	compileCommand := "tsc main.ts"
+	executeCommand := "node main.js"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work ts-node bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
 	_ = ctx.BodyParser(compileRequestBody)
 
-	script := utilities.BuildScript("", executeCommand, 2)
+	script := utilities.BuildScript(compileCommand, executeCommand, 2)
 
 	fileName := fmt.Sprintf("%v/main.ts", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)
