@@ -25,7 +25,7 @@ func HandleTypescript(ctx *fiber.Ctx) error {
 	}
 
 	executeCommand := "ts-node main.ts"
-	dockerCommand := fmt.Sprintf("docker run -t --rm -v %v/%v:/work -w /work ts-node sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work ts-node sh script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
