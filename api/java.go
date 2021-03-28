@@ -26,7 +26,7 @@ func HandleJava(ctx *fiber.Ctx) error {
 
 	compileCommand := "javac main.java"
 	executeCommand := "java main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work openjdk sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work openjdk bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
@@ -36,7 +36,7 @@ func HandleJava(ctx *fiber.Ctx) error {
 		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.Arguments)
 	}
 
-	script := utilities.BuildScript(compileCommand, executeCommand)
+	script := utilities.BuildScript(compileCommand, executeCommand, 1)
 
 	fileName := fmt.Sprintf("%v/main.java", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)

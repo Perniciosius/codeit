@@ -25,13 +25,13 @@ func HandlePython2(ctx *fiber.Ctx) error {
 	}
 
 	executeCommand := "python2 main.py"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work python sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work python bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
 	_ = ctx.BodyParser(compileRequestBody)
 
-	script := utilities.BuildScript("", executeCommand)
+	script := utilities.BuildScript("", executeCommand, 2)
 
 	fileName := fmt.Sprintf("%v/main.py", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)

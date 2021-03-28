@@ -1,13 +1,15 @@
 package utilities
 
-func BuildScript(compileCommand string, executeCommand string) []byte {
+import "strconv"
+
+func BuildScript(compileCommand string, executeCommand string, timeout int) []byte {
 	if compileCommand != "" {
 		compileCommand += " && \\\n"
 	}
 	return []byte("#!/bin/bash\n" +
 		compileCommand +
-		"timeout -k 0.5s 1s " + executeCommand + " > output.txt\n" +
-		"if [ $? -ge 124 ]\n" +
+		"timeout -k 0.5s " + strconv.Itoa(timeout) + "s " + executeCommand + " > output.txt\n" +
+		"if [[ $? == 124 || $? == 137 ]]\n" +
 		"then\n" +
 		"    echo \"timeout: Program execution terminated.\nPlease check for infinite loop.\"\n" +
 		"else\n" +

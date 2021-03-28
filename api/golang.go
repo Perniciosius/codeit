@@ -26,7 +26,7 @@ func HandleGo(ctx *fiber.Ctx) error {
 
 	compileCommand := "go build main.go"
 	executeCommand := "./main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work golang sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work golang bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
@@ -36,7 +36,7 @@ func HandleGo(ctx *fiber.Ctx) error {
 		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.Arguments)
 	}
 
-	script := utilities.BuildScript(compileCommand, executeCommand)
+	script := utilities.BuildScript(compileCommand, executeCommand, 1)
 
 	fileName := fmt.Sprintf("%v/main.go", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)

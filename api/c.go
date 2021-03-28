@@ -26,7 +26,7 @@ func HandleC(ctx *fiber.Ctx) error {
 
 	compileCommand := "gcc main.c -o main"
 	executeCommand := "./main"
-	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work gcc sh script.sh", pwd, folderName)
+	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work gcc bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
@@ -36,7 +36,7 @@ func HandleC(ctx *fiber.Ctx) error {
 		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.Arguments)
 	}
 
-	script := utilities.BuildScript(compileCommand, executeCommand)
+	script := utilities.BuildScript(compileCommand, executeCommand, 1)
 
 	fileName := fmt.Sprintf("%v/main.c", folderName)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)
