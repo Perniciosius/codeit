@@ -32,8 +32,12 @@ func HandleJava(ctx *fiber.Ctx) error {
 	compileRequestBody := new(model.CompileRequestBody)
 	_ = ctx.BodyParser(compileRequestBody)
 
-	if compileRequestBody.Arguments != "" {
-		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.Arguments)
+	if compileRequestBody.CompileArguments != "" {
+		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.CompileArguments)
+	}
+
+	if compileRequestBody.RuntimeArguments != "" {
+		executeCommand = fmt.Sprintf("%v %v", executeCommand, compileRequestBody.RuntimeArguments)
 	}
 
 	script := utilities.BuildScript(compileCommand, executeCommand, 1)
@@ -43,6 +47,13 @@ func HandleJava(ctx *fiber.Ctx) error {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	inputFileName := fmt.Sprintf("%v/input.txt", folderName)
+	err = ioutil.WriteFile(inputFileName, []byte(compileRequestBody.Input), 0664)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	scriptName := fmt.Sprintf("%v/script.sh", folderName)
 	err = ioutil.WriteFile(scriptName, script, 0664)
 	if err != nil {

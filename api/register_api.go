@@ -14,7 +14,7 @@ func Register(apiGroup fiber.Router) {
 	apiGroup.Post("/python", utilities.CheckRequestBody, HandlePython3)
 	apiGroup.Post("/python2", utilities.CheckRequestBody, HandlePython2)
 	apiGroup.Post("/python3", utilities.CheckRequestBody, HandlePython3)
-	apiGroup.Post("typescript", utilities.CheckRequestBody, HandleTypescript)
+	apiGroup.Post("/typescript", utilities.CheckRequestBody, HandleTypescript)
 
 	apiGroup.Use(func(ctx *fiber.Ctx) error {
 		return ctx.SendStatus(404)

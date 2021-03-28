@@ -38,6 +38,13 @@ func HandlePython2(ctx *fiber.Ctx) error {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	inputFileName := fmt.Sprintf("%v/input.txt", folderName)
+	err = ioutil.WriteFile(inputFileName, []byte(compileRequestBody.Input), 0664)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 	scriptName := fmt.Sprintf("%v/script.sh", folderName)
 	err = ioutil.WriteFile(scriptName, script, 0664)
 	if err != nil {
