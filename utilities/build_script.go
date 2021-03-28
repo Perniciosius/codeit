@@ -14,7 +14,10 @@ func BuildScript(compileCommand string, executeCommand string, timeout int) []by
 		"then\n" +
 		"    echo \"timeout: Program execution terminated.\nPlease check for infinite loop.\"\n" +
 		"else\n" +
-		"    cat output.txt\n" +
+		"	if [ -f \"output.txt\" ]\n" +
+		"	then\n" +
+		"		cat output.txt\n" +
+		"	fi\n" +
 		"fi\n" +
 		"if [ -f \"output.txt\" ]\n" +
 		"then\n" +
