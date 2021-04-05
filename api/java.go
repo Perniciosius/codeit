@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"regexp"
 	"time"
 )
 
@@ -26,13 +27,22 @@ func HandleJava(ctx *fiber.Ctx) error {
 
 	defer utilities.Cleanup(folderName)
 
-	compileCommand := "javac main.java"
-	executeCommand := "java main"
 	dockerCommand := fmt.Sprintf("docker run --rm -v %v/%v:/work -w /work openjdk bash script.sh", pwd, folderName)
 
 	// parse request body
 	compileRequestBody := new(model.CompileRequestBody)
 	_ = ctx.BodyParser(compileRequestBody)
+
+	re := regexp.MustCompile(`.*class\s+([A-Za-z0-9_]+)`)
+	var className string
+	if match := re.FindStringSubmatch(compileRequestBody.Code); len(match) < 2 {
+		className = "main"
+	} else {
+		className = match[1]
+	}
+
+	compileCommand := fmt.Sprintf("javac %v.java", className)
+	executeCommand := fmt.Sprintf("java %v", className)
 
 	if compileRequestBody.CompileArguments != "" {
 		compileCommand = fmt.Sprintf("%v %v", compileCommand, compileRequestBody.CompileArguments)
@@ -44,7 +54,7 @@ func HandleJava(ctx *fiber.Ctx) error {
 
 	script := utilities.BuildScript(compileCommand, executeCommand, 1)
 
-	fileName := fmt.Sprintf("%v/main.java", folderName)
+	fileName := fmt.Sprintf("%v/%v.java", folderName, className)
 	err = ioutil.WriteFile(fileName, []byte(compileRequestBody.Code), 0664)
 	if err != nil {
 		log.Fatalln(err)
