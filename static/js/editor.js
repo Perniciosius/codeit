@@ -1,5 +1,5 @@
 $(function () {
-    let editor = CodeMirror.fromTextArea($("codemirror-textarea"), {
+    CodeMirror.fromTextArea(document.getElementById("codemirror-textarea"), {
         lineNumbers: true,
         mode: "python",
         theme: "material",
@@ -7,7 +7,6 @@ $(function () {
         matchBrackets: true,
         smartIndent: true,
     })
-    editor.setSize(500, 500);
     $("form").submit(function (event) {
         let lang = $("#language").val()
         event.preventDefault()
