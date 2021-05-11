@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Fredoka One' rel='stylesheet'>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/theme/base16-dark.min.css" integrity="sha512-KwSvkuZgl9lncVFB+vPkAhZXTTkrEIAfBJoYIXunMfvyM3gsjiAcMXF8yNyHpEPasrEA7CZVcefUvpbJFHEcow==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/theme/icecoder.min.css" integrity="sha512-IQg1sbkXS8bX0QYpSsDfhw4/h29SC3mjR5eqWFjDmiKhv3dE/KI/cHkCWr5hNCZdoUCRLDh+3d2qhXnJj5WO+A==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/theme/material.min.css" integrity="sha512-t93jzyjNejvKJ0LbK+VuLVp89Y8olz3sMmGPhKXYsTjSLuu3a3dVaZljCK6g04ShmsANEM8xe/OB+IaBE2LRBA==" crossorigin="anonymous" />
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <title>DotSlash|Code</title>
+  </head>
+  <body class="backgroundcode">
+    <!-- nav bar......................................................................................................................................................... -->
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-file-earmark-code-fill blue" viewBox="0 0 16 16">
+          <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.646 7.646a.5.5 0 1 1 .708.708L5.707 10l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zm2.708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 10 8.646 8.354a.5.5 0 1 1 .708-.708z"/></svg>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapsed navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link " href="/">Home</a>
+            <a class="nav-item nav-link active" href="/editor">Code</a>
+          </div>
+        </div>
+      </nav>
+    <!--here input output starts............................................................................................................................................-->
+    <form>
+    <div class="container margin3">
+        <div class="row">
+          <!--editor area..........................................-->
+          <div class="container col-md-9 col-lg-9 col-xl-9">
+            <div class="text-center font1">Editor:</div>
+              <textarea id="codemirror-textarea" name="code"></textarea><br>
+              <div class="row">
+                <div class=" col-6">
+                  <div>
+                    <select name="Select Language" id="language" class="drop1">
+                      <option value="c">C</option>
+                      <option value="cpp">C++</option>
+                      <option value="golang">Go</option>
+                      <option value="java">Java</option>
+                      <option value="javascript">Javascript</option>
+                      <option value="python2">Python 2</option>
+                      <option value="python3">Python 3</option>
+                      <option value="typescript">Typescript</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="button1" id="button1">Run Code</button>
+                </div>
+              </div>
+          </div>
+          <!--arguments area..........................................-->
+          <div class="col-md-3 col-lg-3  col-xl-3" >
+            <div class="text-center font1">Arguments:</div>
+            <!--i/p arg..........................................-->
+            <div class="row font1">
+                Input:
+                <textarea class="txtarea boxheight" name="input"></textarea>
+            </div>
+            <!--compile arg..........................................-->
+            <div class="row font1">
+                Compile Arguments:
+                <textarea class="txtarea boxheight" name="compileArguments"></textarea>
+            </div>
+            <!--execution arg..........................................-->
+            <div class="row font1">
+                Runtime Arguments:
+                <textarea class="txtarea boxheight" name="runtimeArguments"></textarea>
+            </div>
+          </div>
+        </div>
+        <!--output area........................................................................................................................-->
+        <div class="row font1" >
+            <br>Output:
+            <textarea class="txtarea boxheight" id="output" readonly></textarea>
+        </div>
+    </div>
+    </form>
+    <!--input output parameters end........................................................................................................................................-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.60.0/codemirror.min.js" integrity="sha512-hc0zo04EIwTzKLvp2eycDTeIUuvoGYYmFIjYx7DmfgQeZPC5N27sPG2wEQPq8d8fCTwuguLrI1ffatqxyTbHJw==" crossorigin="anonymous"></script>
+    <!--PYTHON MODE SCRIPT-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.0/mode/python/python.min.js" integrity="sha512-Wv4mIFQ1bvlZvECHd67MPInlh4OitUjmKXyjOOsGUcUCSL8KYgRG7WIgp7Px2xq02fPMyJD3/L6UNCAer9Pa3Q==" crossorigin="anonymous"></script>
+    <!--txt-editor script................................................................................................................................................................................................................................................-->
+    <script src="/static/js/editor.js"></script>
+</body>
+</html>
