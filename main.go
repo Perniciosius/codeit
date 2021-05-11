@@ -17,9 +17,14 @@ func main() {
 	app.Use(cors.New())
 	app.Use(compress.New())
 	app.Use(cache.New())
+	app.Static("/static", "./static")
 
 	app.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("Hello World")
+		return ctx.SendFile("static/home.html")
+	})
+
+	app.Get("/editor", func(ctx *fiber.Ctx) error {
+		return ctx.SendFile("static/editor.html")
 	})
 
 	apiGroup := app.Group("/api")
