@@ -18,7 +18,7 @@ $(function () {
             case "c":
                 filename = "code.c"
                 break
-            case "c++":
+            case "cpp":
                 filename = "code.cpp"
                 break
             case "java":
