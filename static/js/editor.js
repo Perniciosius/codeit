@@ -9,10 +9,10 @@ $(function () {
         smartIndent: true,
     })
     downloadCode = function () {
-        let textval = editor.getValue()
-        textval = textval.replace(/\n/g, "\r\n")
+        let code = editor.getValue()
+        code = code.replace(/\n/g, "\r\n")
         let lang = $("#language").val()
-        let textFileAsBlob = new Blob([textval], { type: 'text/HTML' })
+        let textFileAsBlob = new Blob([code], { type: 'text/HTML' })
         let filename = ''
         switch (lang) {
             case "c":
@@ -40,7 +40,6 @@ $(function () {
         }
         let downloadLink = document.createElement("a");
         downloadLink.download = filename;
-        downloadLink.innerHTML = "LINKTITLE";
         window.URL = window.URL || window.webkitURL;
         downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
         downloadLink.style.display = "none";
@@ -51,7 +50,7 @@ $(function () {
     $("form").submit(function (event) {
         let lang = $("#language").val()
         event.preventDefault()
-        $.post(`http://ec2-52-66-228-90.ap-south-1.compute.amazonaws.com/api/${lang}`, $(this).serialize()).done(function (data) {
+        $.post(`/api/${lang}`, $(this).serialize()).done(function (data) {
             $("#output").val(data.output)
         }).fail(function () {
             $("#output").val("Some error has occured!\nTry again later.....")
