@@ -2,12 +2,15 @@ package main
 
 import (
 	"codeit/api"
+	"codeit/ws"
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cache"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"log"
+	"github.com/gofiber/websocket/v2"
 )
 
 func main() {
@@ -29,6 +32,17 @@ func main() {
 
 	apiGroup := app.Group("/api")
 	api.Register(apiGroup)
+
+	wsGroup := app.Group("/ws")
+	wsGroup.Use("/ws", func(ctx *fiber.Ctx) error {
+		if websocket.IsWebSocketUpgrade(ctx) {
+			ctx.Locals("allowed", true)
+			return ctx.Next()
+		}
+		return fiber.ErrUpgradeRequired
+	})
+
+	ws.Register(wsGroup)
 
 	log.Fatalln(app.Listen(":8080"))
 }
