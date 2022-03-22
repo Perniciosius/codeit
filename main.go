@@ -34,7 +34,7 @@ func main() {
 	api.Register(apiGroup)
 
 	wsGroup := app.Group("/ws")
-	wsGroup.Use("/ws", func(ctx *fiber.Ctx) error {
+	wsGroup.Use("/", func(ctx *fiber.Ctx) error {
 		if websocket.IsWebSocketUpgrade(ctx) {
 			ctx.Locals("allowed", true)
 			return ctx.Next()
